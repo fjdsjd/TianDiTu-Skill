@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <title>Tianditu 3D Map</title>
+    <style>
+        body, html { width: 100%; height: 100%; margin: 0; padding: 0; }
+        #map3d { width: 100%; height: 100%; position: absolute; }
+    </style>
+    <!-- Note: 3D API uses api3d URL -->
+    <script src="http://api.tianditu.gov.cn/api3d?v=0.1&tk=YOUR_KEY_HERE"></script>
+</head>
+<body onLoad="onLoad()">
+    <div id="map3d"></div>
+    <script>
+        var map3d;
+        function onLoad() {
+            // Initialize 3D Map
+            map3d = new T.Map3d("map3d", {});
+            
+            // Center and Zoom (Lng, Lat, Altitude in meters)
+            map3d.centerAndZoom(new T.LngLat(116.40969, 39.89945), 5000);
+            
+            // Add a 3D Marker
+            var marker = new T.Marker3d(new T.LngLat(116.40969, 39.89945), {
+                height: 100,
+                iconUrl: "http://api.tianditu.gov.cn/img/map/markerA.png"
+            });
+            map3d.addOverLay(marker);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+    <meta name="keywords" content="天地图,Tianditu,Map,GIS"/>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no"/>
+    <title>Tianditu Map Template</title>
+    <style type="text/css">
+        body, html {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            font-family: "Microsoft YaHei", sans-serif;
+        }
+        #mapDiv {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+        }
+        .controls {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            z-index: 1000;
+            background: white;
+            padding: 10px;
+            border-radius: 4px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+        }
+        button {
+            margin: 5px;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+    </style>
+    <!-- 
+      引入天地图JS API
+      v=4.0: API版本
+      tk=YOUR_KEY: 您的密钥 (申请地址: http://lbs.tianditu.gov.cn/server/apikey.html)
+    -->
+    <script type="text/javascript" src="http://api.tianditu.gov.cn/api?v=4.0&tk=YOUR_KEY_HERE"></script>
+</head>
+<body onLoad="onLoad()">
+    <div id="mapDiv"></div>
+    <div class="controls">
+        <button onclick="setMapType('vec')">Vector Map</button>
+        <button onclick="setMapType('img')">Satellite Map</button>
+        <button onclick="setMapType('ter')">Terrain Map</button>
+    </div>
+
+    <script>
+        var map;
+        var zoom = 12;
+
+        function onLoad() {
+            // Check if T is defined (API loaded)
+            if (typeof T === 'undefined') {
+                alert("Tianditu API not loaded. Please check your API Key.");
+                return;
+            }
+
+            // Initialize map
+            // 'mapDiv' is the ID of the container
+            map = new T.Map("mapDiv");
+            
+            // Set center and zoom level
+            // Coordinates: [Longitude, Latitude] (e.g., Beijing: 116.40969, 39.89945)
+            map.centerAndZoom(new T.Lnglat(116.40969, 39.89945), zoom);
+
+            // Add controls
+            addControls();
+        }
+
+        function addControls() {
+            // Zoom control (Navigation)
+            var zoomControl = new T.Control.Zoom();
+            map.addControl(zoomControl);
+
+            // Scale control
+            var scaleControl = new T.Control.Scale();
+            map.addControl(scaleControl);
+
+            // MapType control (Overview)
+            var mapTypeControl = new T.Control.MapType();
+            map.addControl(mapTypeControl);
+        }
+
+        function setMapType(type) {
+            if (!map) return;
+            switch(type) {
+                case 'vec':
+                    map.setMapType(TMAP_NORMAL_MAP);
+                    break;
+                case 'img':
+                    map.setMapType(TMAP_SATELLITE_MAP);
+                    break;
+                case 'ter':
+                    map.setMapType(TMAP_TERRAIN_MAP);
+                    break;
+            }
+        }
+    </script>
+</body>
+</html>
