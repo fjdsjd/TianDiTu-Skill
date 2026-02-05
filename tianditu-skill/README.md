@@ -1,4 +1,4 @@
-# Tianditu Skill (天地图开发技能包)
+# Tianditu Skill (天地图AI Agent开发技能包)
 
 [![Tianditu API](https://img.shields.io/badge/Tianditu%20API-v4.0-blue.svg)](http://lbs.tianditu.gov.cn/api/js4.0/guide.html)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
